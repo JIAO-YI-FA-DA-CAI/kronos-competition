@@ -1,0 +1,39 @@
+name: run_tests
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/**
+      - investpy/**
+      - tests/**
+      - requirements/requirements.txt
+      - requirements/tests-requirements.txt
+      - setup.py
+
+jobs:
+  run-investpy-tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Upgrade pip and install requirements
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
+        pip install .[tests]
+    
+    - name: Run pytest tests
+      run: pytest
