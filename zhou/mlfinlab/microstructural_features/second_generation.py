@@ -1,5 +1,5 @@
 """
-Second generation models features: Kyle lambda, Amihud Lambda, Hasbrouck lambda (bar and trade based)
+Second generation models features: Kyle lambda, Amihud Lambda, Hasbrouck lambda (bar and trades based)
 """
 
 from typing import List

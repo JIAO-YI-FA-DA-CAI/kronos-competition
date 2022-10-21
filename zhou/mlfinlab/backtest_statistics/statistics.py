@@ -61,7 +61,7 @@ def average_holding_period(target_positions: pd.Series) -> float:
     * entry_time = (previous_time * weight_of_previous_position + time_since_beginning_of_trade * increase_in_position )
       / weight_of_current_position
     * holding_period ['holding_time' = time a position was held, 'weight' = weight of position closed]
-    * res = weighted average time a trade was held
+    * res = weighted average time a trades was held
 
     :param target_positions: (pd.Series) Target position series with timestamps as indices
     :return: (float) Estimated average holding period, NaN if zero or unpredicted

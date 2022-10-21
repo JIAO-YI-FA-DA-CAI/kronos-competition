@@ -21,6 +21,6 @@ def get_avg_tick_size(tick_size_arr: list) -> float:
     Get average tick size in a bar.
 
     :param tick_size_arr: (list) Trade sizes
-    :return: (float) Average trade size
+    :return: (float) Average trades size
     """
     return np.mean(tick_size_arr)
