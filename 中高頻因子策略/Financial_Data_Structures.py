@@ -36,14 +36,16 @@ def run(type):
         ticker = name + "USDT"
         path = os.path.join(parent_dir,  ticker + "/trades")
 
-        for date in date_range:
+        for prev_date, date in zip(date_range, date_range[1:]):
             print(ticker + "-trades-" + date.date().isoformat() + ".csv")
+            df_prev = read_ticks(os.path.join(path, ticker + "-trades-" + prev_date.date().isoformat() + ".csv"))
             df = read_ticks(os.path.join(path, ticker + "-trades-" + date.date().isoformat() + ".csv"))
+
             df_base = df[['timestamp', 'price', 'size', 'maker_flag']]
             switcher = {
-                'tick': 10000,
-                'volume':  df_base['size'].quantile(0.75),
-                'dollar': df['cost'].quantile(0.75),
+                'tick': len(df_prev)/86400,
+                'volume':  df_prev['size'].quantile(0.75),
+                'dollar': df_prev['cost'].quantile(0.75),
             }
             transform_data(type, df_base, switcher[type], ticker + "-" + type + "-" + date.date().isoformat())
 
